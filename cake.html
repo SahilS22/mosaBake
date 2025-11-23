@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosa | Premium Bakery & Cafe</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Dynamic Variables */
+            --hero-primary: #ff4757;
+            --hero-light: #fff0f3;
+            --hero-drip: #ffe3e8;
+            --hero-gradient-start: #ffffff;
+            --hero-gradient-mid: #fff0f3;
+            --hero-gradient-end: #ffe3e8;
+            
+            --text-dark: #2f3542;
+            --text-gray: #747d8c;
+            --glass: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            
+            --cafe-brown: #4b3621;
+            --cafe-beige: #f3e5d0;
+            --cafe-yellow: #f1c40f;
+            --cafe-bg: #fff8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* --- Animated Background Blob --- */
+        .bg-blob {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: linear-gradient(45deg, var(--hero-light), var(--hero-primary));
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+            z-index: 0;
+            animation: pulse-blob 10s infinite alternate;
+            transition: background 1s ease;
+        }
+
+        @keyframes pulse-blob {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.4s;
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 28px;
+            color: var(--hero-primary);
+            letter-spacing: 1px;
+            transition: color 1s ease;
+        }
+
+        .nav-links ul { display: flex; list-style: none; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--hero-primary); }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 110vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8%;
+            background: linear-gradient(180deg, var(--hero-gradient-start) 0%, var(--hero-gradient-mid) 50%, var(--hero-gradient-end) 100%);
+            overflow: visible;
+            z-index: 2;
+            transition: background 1s ease;
+        }
+
+        .hero-content { flex: 1; z-index: 2; }
+
+        /* Text Animation */
+        .content-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .content-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #ffeb3b;
+            color: #d35400;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(255, 235, 59, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: 85px;
+            line-height: 0.9;
+            font-family: 'Fredoka One', cursive;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span { 
+            color: var(--hero-primary); 
+            transition: color 1s ease; 
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .btn-group { display: flex; gap: 20px; }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--hero-primary);
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0, 0.2);
+            transition: background 1s ease, transform 0.3s;
+        }
+        
+        /* --- Hero Visuals --- */
+        .hero-visuals {
+            flex: 1.2;
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        /* The Semi Arc */
+        .circle-bg {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            right: -100px; 
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), var(--hero-primary));
+            border-radius: 50%;
+            opacity: 0.25; 
+            z-index: 1;
+            transition: background 1s ease;
+        }
+
+        .parallax-el {
+            position: absolute;
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+        }
+        
+        /* Splash Image */
+        .splash-bg { 
+            z-index: 5; 
+            opacity: 0.9; 
+            width: 750px; 
+            transform: translate(-50%, -50%);
+            transition: opacity 0.8s ease; /* Fade transition for splash */
+        }
+
+        /* --- ROTATION WHEEL ANIMATION --- */
+        .main-cake { 
+            width: 80%; 
+            max-width: 550px; 
+            z-index: 10; 
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.25));
+            /* Smooth springy animation */
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+        }
+
+        /* 1. ROLL OUT TO RIGHT */
+        .rotate-exit {
+            /* Rolls 360 degrees forward and moves right */
+            transform: translateX(150%) rotate(360deg) scale(0.8);
+            opacity: 0;
+        }
+
+        /* 2. INSTANT RESET TO LEFT (Invisible) */
+        .rotate-prepare {
+            /* Positioned far left, rotated back so it can roll forward */
+            transform: translateX(-150%) rotate(-360deg) scale(0.8);
+            opacity: 0;
+            transition: none !important; 
+        }
+
+        /* 3. ROLL IN TO CENTER */
+        .rotate-enter {
+            /* Rolls to center, rotation becomes 0 */
+            transform: translateX(0) rotate(0deg) scale(1);
+            opacity: 1;
+        }
+
+        .floating-fruit { width: 80px; z-index: 11; transition: opacity 0.5s ease; }
+
+        /* --- Melting Divider --- */
+        .melting-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(99%);
+            z-index: 10; 
+            pointer-events: none;
+            line-height: 0;
+        }
+        .melting-bottom svg { display: block; width: 100%; height: clamp(60px, 9vw, 140px); }
+        .melting-fill { 
+            fill: var(--hero-drip); 
+            transition: fill 1s ease;
+        }
+
+        /* --- Categories Section --- */
+        .categories {
+            padding-top: calc(clamp(60px, 9vw, 140px) + 80px);
+            padding-right: 8%;
+            padding-bottom: 80px;
+            padding-left: 8%;
+            text-align: center;
+            background: #ffffff; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .sec-header { margin-bottom: 60px; }
+        .sec-header h3 { font-family: 'Great Vibes', cursive; color: var(--primary); font-size: 30px; }
+        .sec-header h2 { font-family: 'Fredoka One'; font-size: 40px; color: var(--text-dark); }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .cat-box {
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 40px 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cat-box:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 71, 87, 0.15);
+            border-color: var(--primary);
+        }
+        .cat-box::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+        .cat-box:hover::after { left: 150%; transition: 0.7s; }
+        .cat-box img { width: 130px; height: 130px; object-fit: contain; margin-bottom: 20px; transition: 0.4s; }
+        .cat-box:hover img { transform: scale(1.1) rotate(5deg); }
+        .cat-box h4 { font-size: 18px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+        .cat-box span { font-size: 14px; color: var(--primary); font-weight: 500; }
+
+        /* --- Promo Slider Section --- */
+        .promo-slider-section {
+            margin-top: 50px;
+            background: #fff0f3;
+            padding: 40px 10%;
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .promo-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s ease-in-out;
+            transform: translateX(50px);
+        }
+
+        .promo-slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .promo-img { flex: 1; position: relative; text-align: center; }
+        .promo-img img { 
+            width: 100%; max-width: 400px; 
+            transform: rotate(-10deg); transition: 0.5s; 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+        }
+        .promo-slide.active .promo-img img { transform: rotate(0deg); }
+
+        .promo-text { flex: 1; padding-left: 50px; }
+        
+        .timer { display: flex; gap: 15px; margin: 20px 0; }
+        .time-box {
+            background: white; width: 60px; height: 60px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-weight: bold; color: var(--primary); font-size: 14px;
+        }
+
+        /* --- Cafe Menu Section --- */
+        .cafe-menu-section {
+            padding: 80px 8%;
+            background: var(--cafe-bg);
+            position: relative;
+        }
+        .cafe-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-card {
+            border-radius: 30px;
+            padding: 15px;
+            height: auto;
+            min-height: 240px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow: visible;
+        }
+        .menu-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        .card-dark { background-color: var(--cafe-brown); color: #fff; }
+        .card-beige { background-color: var(--cafe-beige); color: var(--cafe-brown); }
+        .card-yellow { background-color: var(--cafe-yellow); color: var(--cafe-brown); }
+
+        .liquid-img-box {
+            width: 110px; height: 110px; margin-top: 15px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
+            animation: float-liquid 4s ease-in-out infinite;
+        }
+        @keyframes float-liquid {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .menu-card-img { width: 90%; height: 90%; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.2)); transition: 0.3s; }
+        .menu-card:hover .menu-card-img { transform: scale(1.1); }
+
+        .menu-info { text-align: center; width: 100%; z-index: 2; margin-top: 15px; }
+        .menu-info h4 { font-family: 'Fredoka One'; font-size: 16px; letter-spacing: 0.5px; margin-bottom: 8px; line-height: 1.2; }
+        
+        .menu-btn {
+            padding: 6px 20px; border-radius: 20px; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; cursor: pointer; border: none; width: 100%; max-width: 100px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .card-dark .menu-btn { background: #5d452d; color: #fff; }
+        .card-beige .menu-btn { background: #e4d2b8; color: var(--cafe-brown); }
+        .card-yellow .menu-btn { background: #dcb02b; color: #fff; }
+
+        .top-icon {
+            position: absolute; top: 15px; right: 15px; width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 10px;
+        }
+        .card-dark .top-icon { background: rgba(255,255,255,0.1); }
+        .card-beige .top-icon { background: rgba(0,0,0,0.05); }
+        .card-yellow .top-icon { background: rgba(255,255,255,0.2); }
+
+        /* --- Ambience Carousel --- */
+        .ambience-section { padding: 20px 8% 100px 8%; background: var(--cafe-bg); overflow: hidden; }
+        .ambience-header { text-align: center; margin-bottom: 50px; }
+        .ambience-header h2 { font-family: 'Fredoka One'; font-size: 42px; color: var(--cafe-brown); line-height: 1.2; }
+
+        .carousel-container {
+            width: 100%; overflow-x: auto; padding-bottom: 30px;
+            scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: x mandatory;
+            display: flex; gap: 30px;
+        }
+        .carousel-container::-webkit-scrollbar { display: none; }
+        .carousel-card {
+            min-width: 320px; flex: 1; height: 220px; border-radius: 35px;
+            overflow: hidden; position: relative; scroll-snap-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        .carousel-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .carousel-card:hover img { transform: scale(1.1); }
+
+        /* --- Footer --- */
+        .footer-section {
+            position: relative;
+            padding: 60px 8% 30px; 
+            background: linear-gradient(180deg, var(--cafe-bg) 0%, #f0f0f0 100%);
+            overflow: hidden;
+        }
+
+        .footer-blob {
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(45deg, #ff9ff3, #54a0ff);
+            filter: blur(90px);
+            opacity: 0.3;
+            border-radius: 50%;
+            z-index: 0;
+            animation: pulse-blob-footer 12s infinite alternate;
+        }
+        @keyframes pulse-blob-footer {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, -50px); }
+        }
+
+        .footer-glass-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 40px;
+            padding: 30px 40px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px; 
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .footer-brand { max-width: 350px; }
+        .footer-brand h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 30px; 
+            color: var(--hero-primary); 
+            margin-bottom: 8px;
+        }
+        .footer-brand p {
+            color: var(--text-gray);
+            line-height: 1.5;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .social-icons { display: flex; gap: 10px; }
+        .social-icons a {
+            width: 35px; height: 35px;
+            background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--hero-primary); text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .social-icons a:hover { transform: translateY(-3px); background: var(--hero-primary); color: white; }
+
+        .footer-links ul { 
+            display: flex; 
+            list-style: none; 
+            gap: 25px; 
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            text-decoration: none; color: var(--text-dark);
+            font-weight: 600; font-size: 14px; transition: 0.3s;
+            position: relative;
+        }
+        .footer-links a::after {
+            content:''; position: absolute; bottom: -2px; left: 0; width: 0%; height: 2px; background: var(--hero-primary); transition: 0.3s;
+        }
+        .footer-links a:hover { color: var(--hero-primary); }
+        .footer-links a:hover::after { width: 100%; }
+
+        .outlets-wrapper { width: 100%; }
+        .outlets-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .outlet-card {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px; 
+            border-radius: 15px;
+            display: flex; gap: 12px; align-items: center;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.5);
+        }
+        .outlet-card:hover { background: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        
+        .outlet-icon {
+            width: 35px; height: 35px; background: var(--hero-drip);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: var(--hero-primary); font-size: 16px; flex-shrink: 0;
+            transition: background 1s ease, color 1s ease;
+        }
+        .outlet-info h4 { font-weight: 700; font-size: 14px; color: var(--text-dark); margin-bottom: 2px; }
+        .outlet-info p { font-size: 12px; color: var(--text-gray); line-height: 1.3; margin: 0; }
+
+        .copyright {
+            text-align: center; margin-top: 20px;
+            color: var(--text-gray); font-size: 12px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            .hero h1 { font-size: 50px; }
+            .hero-visuals { height: 400px; width: 100%; margin-top: 30px; }
+            .promo-slider-section { height: 700px; padding: 40px 5%; }
+            .promo-slide { flex-direction: column-reverse; text-align: center; justify-content: center; }
+            .promo-text { padding: 0; margin-bottom: 30px; }
+            .promo-img img { max-width: 250px; }
+            .footer-top { flex-direction: column; text-align: center; gap: 20px; }
+            .footer-links ul { justify-content: center; gap: 15px; }
+            .social-icons { justify-content: center; }
+            .outlet-card { flex-direction: column; text-align: center; }
+            nav { width: 95%; padding: 10px 20px; }
+            .nav-links { display: none; }
+            .categories { padding-right: 5%; padding-left: 5%; }
+            .carousel-container { gap: 15px; }
+            .carousel-card { min-width: 85vw; height: 250px; border-radius: 25px; }
+            .cafe-grid-layout { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blob"></div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">mosa.</div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="cart">
+            <a href="#" class="btn btn-primary" style="padding: 10px 25px; font-size: 12px;">ORDER NOW</a>
+        </div>
+    </nav>
+
+    <!-- DYNAMIC HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-right" data-aos-duration="1200">
+            <div id="hero-text-container">
+                <span class="badge" id="hero-badge">New Arrival</span>
+                <h1 id="hero-title">Sweet <br> <span>Sensation</span></h1>
+                <p id="hero-desc">Experience the triple marble texture of our new Strawberry Delight. Made with organic milk and hand-picked berries from the Alps.</p>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-primary">View Menu</a>
+                    <a href="#" class="btn" style="background:white; color:var(--text-dark); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">Watch Video <i class="fas fa-play-circle" style="margin-left:5px;"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-visuals" id="scene">
+            <!-- Semi Arc (Circle Background) -->
+            <div class="circle-bg"></div>
+            
+            <!-- Splash Image (Controlled via JS) -->
+            <img src="splash.png" class="parallax-el splash-bg" id="hero-splash" data-speed="2" alt="Splash">
+            
+            <!-- Main Changing Image (Rotates IN/OUT) -->
+            <img src="cake.png" class="parallax-el main-cake rotate-enter" id="hero-img-main" data-speed="5" alt="Main Dish">
+            
+            <!-- Floating Elements -->
+            <img src="https://pngimg.com/d/strawberry_PNG2600.png" class="parallax-el floating-fruit" id="float-1" style="top: 10%; left: 0; width: 100px;" data-speed="-2" alt="Float 1">
+            <img src="https://pngimg.com/d/strawberry_PNG2600.png" class="parallax-el floating-fruit" id="float-2" style="bottom: 10%; right: 10%; width: 80px; filter: blur(1px);" data-speed="6" alt="Float 2">
+            <img src="https://pngimg.com/d/strawberry_PNG2600.png" class="parallax-el floating-fruit" id="float-3" style="top: 50%; right: -50px; width: 60px;" data-speed="3" alt="Float 3">
+        </div>
+
+        <div class="melting-bottom">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path class="melting-fill" d="M1440,0 L1440,10 C1420,10 1410,50 1390,50 C1370,50 1360,20 1340,20 C1320,20 1310,90 1280,90 C1250,90 1240,20 1210,20 C1180,20 1170,70 1150,70 C1130,70 1120,30 1100,30 C1080,30 1070,85 1040,85 C1010,85 1000,25 970,25 C940,25 930,65 900,65 C870,65 860,15 830,15 C800,15 790,95 750,95 C710,95 700,25 660,25 C630,25 620,75 590,75 C560,75 550,35 520,35 C490,35 480,80 450,80 C420,80 410,20 380,20 C350,20 340,60 310,60 C280,60 270,15 240,15 C210,15 200,90 160,90 C120,90 110,30 80,30 C50,30 40,70 20,70 C10,70 0,40 0,40 L0,0 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Category Section -->
+    <section class="categories">
+        <div class="sec-header" data-aos="fade-up">
+            <h3>Our Specialties</h3>
+            <h2>Choose Your Flavor</h2>
+        </div>
+        <div class="cat-grid">
+            <div class="cat-box" data-aos="fade-up"><img src="cupcake.png" alt="Cupcake"><h4>Sweet Cupcakes</h4><span>Starting $3.99</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="50"><img src="https://pngimg.com/d/croissant_PNG48.png" alt="Croissant"><h4>Butter Croissant</h4><span>Starting $2.50</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="100"><img src="scoop.png" alt="Ice Cream"><h4>Summer Scoops</h4><span>Starting $4.00</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="150"><img src="https://pngimg.com/d/donut_PNG28.png" alt="Donut"><h4>Glazed Donuts</h4><span>Starting $1.99</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="200"><img src="https://www.pngall.com/wp-content/uploads/5/Macarons-PNG-Free-Image.png" alt="Macaron"><h4>French Macarons</h4><span>Starting $5.99</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="250"><img src="https://www.pngall.com/wp-content/uploads/2016/03/Fruit-PNG.png" alt="Tart"><h4>Fruit Tarts</h4><span>Starting $6.50</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="300"><img src="https://pngimg.com/d/cookie_PNG13656.png" alt="Cookie"><h4>Choco Cookies</h4><span>Starting $1.50</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="350"><img src="https://www.pngall.com/wp-content/uploads/5/Cheesecake-PNG-Image.png" alt="Cheesecake"><h4>NY Cheesecake</h4><span>Starting $8.00</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="400"><img src="https://pngimg.com/d/muffin_PNG54.png" alt="Muffin"><h4>Berry Muffins</h4><span>Starting $3.20</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="450"><img src="https://pngimg.com/d/waffle_PNG29.png" alt="Waffles"><h4>Belgian Waffles</h4><span>Starting $5.50</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="500"><img src="pancake.png" alt="Pancake"><h4>Fluffy Pancakes</h4><span>Starting $7.00</span></div>
+            <div class="cat-box" data-aos="fade-up" data-aos-delay="550"><img src="https://www.pngall.com/wp-content/uploads/5/Pretzel-PNG.png" alt="Pretzel"><h4>Salty Pretzels</h4><span>Starting $2.99</span></div>
+        </div>
+    </section>
+
+    <!-- Promo SLIDER Section -->
+    <section class="promo-slider-section">
+        <div class="slider-container" id="promoSlider">
+            <div class="promo-slide active">
+                <div class="promo-img"><img src="pizza-bowl.png" alt="Fruit Bowl"></div>
+                <div class="promo-text">
+                    <h3 style="color:var(--secondary); font-weight:600;">Deal of the Day</h3>
+                    <h2 style="font-family:'Fredoka One'; font-size:48px; margin: 10px 0;">Tropical Fruit Bowl</h2>
+                    <p>Get 40% off on all fresh fruit salads and organic bowl mixes.</p>
+                    <div class="timer">
+                        <div class="time-box"><span>02</span><small>Hrs</small></div>
+                        <div class="time-box"><span>45</span><small>Min</small></div>
+                        <div class="time-box"><span>20</span><small>Sec</small></div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Order Now $12.00</a>
+                </div>
+            </div>
+            <div class="promo-slide">
+                <div class="promo-img"><img src="breakfast.png" alt="Breakfast"></div>
+                <div class="promo-text">
+                    <h3 style="color:var(--secondary); font-weight:600;">Morning Special</h3>
+                    <h2 style="font-family:'Fredoka One'; font-size:48px; margin: 10px 0;">Mega Breakfast</h2>
+                    <p>Start your day with our power-packed breakfast combo at 30% off.</p>
+                    <div class="timer">
+                        <div class="time-box"><span>01</span><small>Hrs</small></div>
+                        <div class="time-box"><span>10</span><small>Min</small></div>
+                        <div class="time-box"><span>55</span><small>Sec</small></div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Order Now $15.00</a>
+                </div>
+            </div>
+            <div class="promo-slide">
+                <div class="promo-img"><img src="https://www.pngall.com/wp-content/uploads/2016/05/Burger-Free-Download-PNG.png" alt="Party Pack"></div>
+                <div class="promo-text">
+                    <h3 style="color:var(--secondary); font-weight:600;">Weekend Vibes</h3>
+                    <h2 style="font-family:'Fredoka One'; font-size:48px; margin: 10px 0;">Party Burger Pack</h2>
+                    <p>Buy 2 Get 1 Free on all gourmet burgers this weekend!</p>
+                    <div class="timer">
+                        <div class="time-box"><span>05</span><small>Hrs</small></div>
+                        <div class="time-box"><span>00</span><small>Min</small></div>
+                        <div class="time-box"><span>00</span><small>Sec</small></div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Order Now $25.00</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cafe Menu Section -->
+    <section class="cafe-menu-section">
+        <div class="sec-header" style="text-align:center;" data-aos="fade-up">
+            <h2 style="font-family:'Fredoka One'; color:var(--cafe-brown);">Cafe Delights</h2>
+            <p style="color:var(--text-gray);">Freshly prepared everyday</p>
+        </div>
+        <div class="cafe-grid-layout">
+            <div class="menu-card card-dark" data-aos="fade-up" data-aos-delay="100">
+                <div class="top-icon"><i class="fas fa-plus"></i></div>
+                <div class="liquid-img-box"><img src="coldc.png" class="menu-card-img" alt="Coffee"></div>
+                <div class="menu-info"><h4>Cold<br>Coffee</h4><button class="menu-btn">Order <i class="fas fa-chevron-right"></i></button></div>
+            </div>
+            <div class="menu-card card-beige" data-aos="fade-up" data-aos-delay="150">
+                <div class="top-icon"><i class="fas fa-plus"></i></div>
+                <div class="liquid-img-box"><img src="brwonie.png" class="menu-card-img" alt="Brownie"></div>
+                <div class="menu-info"><h4>Choco<br>Brownie</h4><button class="menu-btn">About <i class="fas fa-chevron-right"></i></button></div>
+            </div>
+            <div class="menu-card card-dark" data-aos="fade-up" data-aos-delay="200">
+                <div class="top-icon"><i class="fas fa-plus"></i></div>
+                <div class="liquid-img-box"><img src="capp.png" class="menu-card-img" alt="Cappuccino"></div>
+                <div class="menu-info"><h4>Hot<br>Brew</h4><button class="menu-btn">Order <i class="fas fa-chevron-right"></i></button></div>
+            </div>
+            <div class="menu-card card-beige" data-aos="fade-up" data-aos-delay="250">
+                <div class="top-icon"><i class="fas fa-plus"></i></div>
+                <div class="liquid-img-box"><img src="burger.png" class="menu-card-img" alt="Burger"></div>
+                <div class="menu-info"><h4>Cheese<br>Burger</h4><button class="menu-btn">Select <i class="fas fa-chevron-right"></i></button></div>
+            </div>
+            <div class="menu-card card-yellow" data-aos="fade-up" data-aos-delay="300">
+                <div class="top-icon"><i class="fas fa-plus"></i></div>
+                <div class="liquid-img-box"><img src="https://pngimg.com/d/pizza_PNG44077.png" class="menu-card-img" alt="Pizza"></div>
+                <div class="menu-info"><h4>Italian<br>Pizza</h4><button class="menu-btn">Order <i class="fas fa-chevron-right"></i></button></div>
+            </div>
+            <div class="menu-card card-beige" data-aos="fade-up" data-aos-delay="350">
+                <div class="top-icon"><i class="fas fa-plus"></i></div>
+                <div class="liquid-img-box"><img src="https://pngimg.com/d/fries_PNG11.png" class="menu-card-img" alt="Fries"></div>
+                <div class="menu-info"><h4>Crispy<br>Fries</h4><button class="menu-btn">Enjoy <i class="fas fa-chevron-right"></i></button></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ambience Carousel -->
+    <section class="ambience-section">
+        <div class="ambience-header"><h2>Teolowvee Moaven<br>Duling & Cavactic Bayy</h2></div>
+        <div class="carousel-container">
+            <div class="carousel-card"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Cafe Interior"></div>
+            <div class="carousel-card"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Cafe Seating"></div>
+            <div class="carousel-card"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Cozy Corner"></div>
+            <div class="carousel-card"><img src="https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Breakfast Table"></div>
+        </div>
+    </section>
+
+    <!-- COMPACT GLASS FOOTER -->
+    <footer class="footer-section">
+        <div class="footer-blob"></div>
+        <div class="footer-glass-container" data-aos="fade-up">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>mosa.</h2>
+                    <p>Crafting the finest pastries since 2015.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Full Menu</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="outlets-wrapper">
+                <div class="outlets-container">
+                    <div class="outlet-card">
+                        <div class="outlet-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="outlet-info"><h4>Mosa Downtown</h4><p>102 Bakery St, New York, NY</p></div>
+                    </div>
+                    <div class="outlet-card">
+                        <div class="outlet-icon"><i class="fas fa-store"></i></div>
+                        <div class="outlet-info"><h4>Mosa Westside</h4><p>Westside Mall, Beverly Hills, CA</p></div>
+                    </div>
+                    <div class="outlet-card">
+                        <div class="outlet-icon"><i class="fas fa-umbrella-beach"></i></div>
+                        <div class="outlet-info"><h4>Mosa Seaside</h4><p>45 Ocean Dr, Miami Beach, FL</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright"><p>&copy; 2023 Mosa Bakery & Cafe. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 100, duration: 800 });
+
+        // ============================================
+        // DYNAMIC HERO ENGINE
+        // ============================================
+        const heroData = [
+            {
+                // CAKE (Splash Visible)
+                title: "Sweet <br> <span>Sensation</span>",
+                desc: "Experience the triple marble texture of our new Strawberry Delight. Made with organic milk and hand-picked berries from the Alps.",
+                badge: "New Arrival",
+                colors: { primary: "#ff4757", mid: "#fff0f3", end: "#ffe3e8" },
+                images: {
+                    main: "cake.png",
+                    float1: "https://pngimg.com/d/strawberry_PNG2600.png",
+                    float2: "https://pngimg.com/d/strawberry_PNG2600.png",
+                    float3: "https://pngimg.com/d/strawberry_PNG2600.png"
+                },
+                hasSplash: true, // SHOW SPLASH
+                splashFilter: "hue-rotate(0deg) saturate(100%)" 
+            },
+            {
+                // PIZZA (Splash Hidden, Roll visible)
+                title: "Cheesy <br> <span>Delight</span>",
+                desc: "Savor the authentic taste of Naples with our wood-fired Margherita. Topped with fresh basil, mozzarella, and sun-ripened tomatoes.",
+                badge: "Best Seller",
+                colors: { primary: "#ff9f43", mid: "#fff8e1", end: "#ffeaa7" },
+                images: {
+                    main: "pizza.png",
+                    float1: "https://pngimg.com/d/tomato_PNG12567.png",
+                    float2: "https://pngimg.com/d/basil_PNG30.png",
+                    float3: "https://pngimg.com/d/tomato_PNG12567.png"
+                },
+                hasSplash: false // HIDE SPLASH
+            },
+            {
+                // COFFEE (Splash Hidden, Roll visible)
+                title: "Cold <br> <span>Brew</span>",
+                desc: "Kickstart your morning with our signature cold brew. 24-hour steeped Arabica beans served with a splash of organic hazelnut cream.",
+                badge: "Must Try",
+                colors: { primary: "#8d6e63", mid: "#efebe9", end: "#d7ccc8" },
+                images: {
+                    main: "capp.png",
+                    float1: "https://pngimg.com/d/coffee_beans_PNG9276.png",
+                    float2: "https://pngimg.com/d/coffee_beans_PNG9276.png",
+                    float3: "https://pngimg.com/d/coffee_beans_PNG9276.png"
+                },
+                hasSplash: false // HIDE SPLASH
+            }
+        ];
+
+        let currentHeroIndex = 0;
+        const root = document.documentElement;
+
+        function updateHeroSection() {
+            currentHeroIndex = (currentHeroIndex + 1) % heroData.length;
+            const data = heroData[currentHeroIndex];
+
+            // 1. Update Colors
+            root.style.setProperty('--hero-primary', data.colors.primary);
+            root.style.setProperty('--hero-gradient-mid', data.colors.mid);
+            root.style.setProperty('--hero-gradient-end', data.colors.end);
+            root.style.setProperty('--hero-drip', data.colors.end);
+
+            // 2. Handle Splash Visibility
+            const splash = document.getElementById('hero-splash');
+            if(data.hasSplash) {
+                splash.style.opacity = 0.9;
+                splash.style.filter = data.splashFilter;
+            } else {
+                splash.style.opacity = 0;
+            }
+
+            // 3. Fade Out Text
+            const textContainer = document.getElementById('hero-text-container');
+            const mainImg = document.getElementById('hero-img-main');
+            const float1 = document.getElementById('float-1');
+            const float2 = document.getElementById('float-2');
+            const float3 = document.getElementById('float-3');
+
+            textContainer.classList.add('content-fade');
+
+            // 4. ANIMATION OUT: Roll forward and right
+            mainImg.classList.remove('rotate-enter');
+            mainImg.classList.add('rotate-exit');
+
+            float1.style.opacity = 0;
+            float2.style.opacity = 0;
+            float3.style.opacity = 0;
+
+            // 5. Swap Data
+            setTimeout(() => {
+                document.getElementById('hero-badge').innerText = data.badge;
+                document.getElementById('hero-title').innerHTML = data.title;
+                document.getElementById('hero-desc').innerText = data.desc;
+
+                mainImg.src = data.images.main;
+                float1.src = data.images.float1;
+                float2.src = data.images.float2;
+                float3.src = data.images.float3;
+
+                // 6. PREPARE ENTRY: Reset position to left
+                mainImg.classList.remove('rotate-exit');
+                mainImg.classList.add('rotate-prepare');
+
+                // 7. ANIMATION IN: Roll from left to center
+                setTimeout(() => {
+                    mainImg.classList.remove('rotate-prepare');
+                    mainImg.classList.add('rotate-enter');
+
+                    textContainer.classList.remove('content-fade');
+                    textContainer.classList.add('content-show');
+                    
+                    float1.style.opacity = 1;
+                    float2.style.opacity = 1;
+                    float3.style.opacity = 1;
+                }, 50);
+
+            }, 600);
+        }
+
+        setInterval(updateHeroSection, 5000); 
+
+        // Parallax
+        document.addEventListener("mousemove", parallax);
+        function parallax(e) {
+            document.querySelectorAll(".parallax-el").forEach(function(move){
+                var moving_value = move.getAttribute("data-speed");
+                var x = (e.clientX * moving_value) / 250;
+                var y = (e.clientY * moving_value) / 250;
+                move.style.transform = "translateX(" + x + "px) translateY(" + y + "px)";
+            });
+        }
+
+        // Slider
+        let slidePromo = document.querySelectorAll('.promo-slide');
+        let currentPromo = 0;
+        function nextSlide() {
+            slidePromo[currentPromo].classList.remove('active');
+            currentPromo = (currentPromo + 1) % slidePromo.length;
+            slidePromo[currentPromo].classList.add('active');
+        }
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>
